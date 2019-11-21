@@ -28,6 +28,9 @@ public class TicTacToeTile extends JPanel {
             reserved = true;
         }
     }
+    public int getPosition(){
+        return position;
+    }
 
 
 }

@@ -36,7 +36,7 @@ public class TicTacToeGui extends AbstractGameGui {
     protected void setUp() {
         setLayout(new GridLayout(3,3));
         TicTacToeTile tile;
-        for(int i = 1; i<=9; i++){
+        for(int i = 0; i<9; i++){
             tile = new TicTacToeTile(i);
             add(tile);
             tile.addMouseListener(new PanelMouseAdapter());
@@ -45,11 +45,25 @@ public class TicTacToeGui extends AbstractGameGui {
     }
 
     private class PanelMouseAdapter extends MouseAdapter {
+
         public void mousePressed(MouseEvent e){
-            TicTacToeTile tile = (TicTacToeTile)e.getSource();
             TicTacToe temp = (TicTacToe) getGame();
-            tile.setText(temp.getCurrPlayerText());
-            currPlayerLabel.setText(temp.getCurrPlayer().getName()+"'s Turn");
+            if(!temp.gameWon()) {
+                TicTacToeTile tile = (TicTacToeTile)e.getSource();
+                tile.setText(temp.getCurrPlayerText());
+                temp.setBoardSpot(tile.getPosition(),temp.getCurrPlayerText());
+                if(!temp.gameWon()) {
+                    //temp.seeBoard();
+                    temp.nextPlayerTurn();
+                    currPlayerLabel.setText(temp.getCurrPlayer().getName() + "'s Turn");
+                }
+                else{
+                    currPlayerLabel.setText(temp.getCurrPlayer().getName()+" Has Won");
+                }
+            }
+            else{
+                currPlayerLabel.setText(temp.getCurrPlayer().getName()+" Has Won");
+            }
 
         }
     }
