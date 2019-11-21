@@ -5,11 +5,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CheckersGui extends AbstractGameGui {
-    private final int WIDTH = 500;
-    private final int HEIGHT = 500;
-
+    private final int WIDTH = 800;
+    private final int HEIGHT = 800;
+    Checkers checkers;
     public CheckersGui(JFrame parent) {
-        super(parent, new Checkers());
+        super(parent, null);
+
     }
 
     @Override
@@ -27,28 +28,16 @@ public class CheckersGui extends AbstractGameGui {
     {
 
         setLayout(new GridLayout(8,8));
-        CheckerTile tile = new CheckerTile();
-        boolean red = false;
-        for (int x = 1; x<=8; x++)
-        {
-            for(int y = 1; y<=8; y++)
-            {
-                tile = new CheckerTile();
-                if(red)
-                {
-                    tile.setTileColor(Color.BLACK);
-                    red = false;
-                }
-                else
-                {
-                    tile.setTileColor(Color.RED);
-                    red=true;
-                }
-                add(tile);
+        //
+        //boolean red = false;
+        checkers= new Checkers();
+        for(int x = 0; x<8;x++){
+            for(int y = 0; y<8; y++){
+                add(checkers.getCheckerTile(x,y));
             }
-            red = (!red);
-
         }
+        CheckerTile tile = checkers.getCheckerTile(0,0);
+        tile.setChecker(new Checker(tile.getX(),tile.getY()));
 
         repaint();
     }
