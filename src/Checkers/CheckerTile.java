@@ -22,7 +22,7 @@ public class CheckerTile extends Canvas implements DropTargetListener
     public CheckerTile()
     {
         super();
-        
+
         setVisible(true);
 
     }
