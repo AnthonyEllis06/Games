@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.*;
 import java.io.IOException;
@@ -31,49 +32,54 @@ public class CheckerTile extends JPanel implements DropTargetListener
         setBackground(color);
         if(color==Color.RED) {
             valid = true;
+
+            new DropTarget(this,this);
         }
         else {
             valid = false;
         }
     }
     public void setChecker(Checker checker){
-        int x = getWidth();
-        int y = getHeight();
-        checker = new Checker(x,y);
-        add(new Checker(x,y));
+        this.checker = checker;
+        add(checker);
+        revalidate();
+        repaint();
     }
 
-    @Override
-    public void dragEnter(DropTargetDragEvent dtde) {
-
+    public Checker getChecker() {
+        return checker;
     }
-
-    @Override
-    public void dragOver(DropTargetDragEvent dtde) {
-
-    }
-
-    @Override
-    public void dropActionChanged(DropTargetDragEvent dtde) {
-
-    }
-
-    @Override
-    public void dragExit(DropTargetEvent dte) {
-
+    public void removeChecker(){
+        remove(checker);
     }
 
     @Override
     public void drop(DropTargetDropEvent dtde) {
-        Checker check = (Checker) dtde.getSource();
-        try {
-            check.getTransferData(new DataFlavor());
+        Transferable transferable = dtde.getTransferable();
+        DataFlavor[] flavors = transferable.getTransferDataFlavors();
+        Checker dropChecker;
+        try{
+            dropChecker = (Checker) transferable.getTransferData(flavors[0]);
         }
-        catch (UnsupportedFlavorException ufe){
-            System.out.println("null checker");
+        catch (UnsupportedFlavorException unsupported){
+            dtde.rejectDrop();
+            return;
         }
-        catch (IOException ioe){
-
+        catch (java.io.IOException ioexception){
+            dtde.rejectDrop();
+            return;
         }
+        dtde.acceptDrop(DnDConstants.ACTION_MOVE);
+        dtde.dropComplete(true);
+        setChecker(dropChecker);
     }
+
+    @Override
+    public void dragEnter(DropTargetDragEvent dtde) {}
+    @Override
+    public void dragOver(DropTargetDragEvent dtde) {}
+    @Override
+    public void dropActionChanged(DropTargetDragEvent dtde) {}
+    @Override
+    public void dragExit(DropTargetEvent dte) {}
 }

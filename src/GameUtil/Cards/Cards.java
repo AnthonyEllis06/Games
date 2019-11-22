@@ -22,7 +22,7 @@ public class Cards<T> extends LinkedList<T> {
     public T getBottom(){
         return getLast();
     }
-    public LinkedList<T> dealFromTop(int numCards){
+    public Cards<T> dealFromTop(int numCards){
         Cards<T> hand = new Cards();
         while(numCards>0){
             hand.add(removeFirst());
@@ -30,7 +30,7 @@ public class Cards<T> extends LinkedList<T> {
         }
         return hand;
     }
-    public LinkedList<T> dealFromBottom(int numCards){
+    public Cards<T> dealFromBottom(int numCards){
         Cards<T> hand = new Cards<>();
         while(numCards>0){
             hand.add(removeLast());

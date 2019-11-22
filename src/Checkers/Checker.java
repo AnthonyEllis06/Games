@@ -6,36 +6,28 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
 import java.io.IOException;
 
-public class Checker extends JLabel implements Transferable, DragGestureListener {
+public class Checker extends JLabel implements DragGestureListener {
+    CheckerTransferable transferable;
     public Checker(int x, int y){
         super();
         //Image m = new BufferedImage();
-        ImageIcon checkerImage = new ImageIcon("C:\\Users\\antho\\Desktop\\Games\\src\\GameUtil\\Images\\black2.png");
+        DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE,this);
+        ImageIcon checkerImage = new ImageIcon("C:\\Users\\Anthony\\Desktop\\Games\\src\\GameUtil\\Images\\BlackChecker.png");
         setIcon(checkerImage);
     }
 
 
     @Override
     public void dragGestureRecognized(DragGestureEvent dge) {
-        dge.startDrag(Cursor.getDefaultCursor(),this);
+        CheckerTransferable transferable = new CheckerTransferable(this);
+        DragSource ds = dge.getDragSource();
+        ds.startDrag(dge,DragSource.DefaultCopyDrop,transferable,null);
     }
 
-    @Override
-    public DataFlavor[] getTransferDataFlavors() {
-        return new DataFlavor[0];
-    }
-
-    @Override
-    public boolean isDataFlavorSupported(DataFlavor flavor) {
-        return true;
-    }
-
-    @Override
-    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
-        return this;
-    }
 }
