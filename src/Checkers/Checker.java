@@ -14,12 +14,22 @@ import java.io.IOException;
 
 public class Checker extends JLabel implements DragGestureListener {
     CheckerTransferable transferable;
+    Coordinate curr;
+    Coordinate next;
     public Checker(int x, int y){
         super();
         //Image m = new BufferedImage();
         DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE,this);
         ImageIcon checkerImage = new ImageIcon("C:\\Users\\Anthony\\Desktop\\Games\\src\\GameUtil\\Images\\BlackChecker.png");
         setIcon(checkerImage);
+        curr = new Coordinate(x,y);
+        next = null;
+    }
+    public void moveChecker(int x, int y){
+
+    }
+    public void moveChecker(Coordinate coordinate){
+
     }
 
 
