@@ -15,9 +15,8 @@ public class GameMenuGui extends AbstractGameGui implements ActionListener {
     private final int WIDTH = 150;
     private final int HEIGHT = 200;
     public GameMenuGui(JFrame parent){
-        super(parent);
-        GetParent().getJMenuBar().setVisible(false);
-        GetParent().add(this, BorderLayout.CENTER);
+        super(parent, null);
+        parent.getJMenuBar().setVisible(false);
     }
     @Override
     protected int getGameWidth() {
@@ -31,9 +30,11 @@ public class GameMenuGui extends AbstractGameGui implements ActionListener {
 
     @Override
     protected void setUp() {
+        setBackground(Color.BLACK);
         JButton checkerButton = new JButton("Checkers");
         checkerButton.addActionListener(this);
         checkerButton.setActionCommand("checker");
+        checkerButton.setBackground(Color.RED);
         add(checkerButton);
 
         JButton ticTacToeButton = new JButton("TicTacToe");
@@ -50,22 +51,17 @@ public class GameMenuGui extends AbstractGameGui implements ActionListener {
         BlackJackButton.addActionListener(this);
         BlackJackButton.setActionCommand("BlackJack");
         add(BlackJackButton);
-
     }
     private void checker(){
-        this.removeAll();
         new CheckersGui(this.GetParent());
     }
     private void ticTacToe(){
-        this.removeAll();
         new TicTacToeGui(this.GetParent());
     }
     private void war(){
-        this.removeAll();
         new WarGui(this.GetParent());
     }
     private void blackJack(){
-        this.removeAll();
         new BlackJackGui(this.GetParent());
     }
     @Override

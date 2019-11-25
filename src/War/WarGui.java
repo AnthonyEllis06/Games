@@ -9,7 +9,7 @@ public class WarGui extends AbstractGameGui {
     private final int HEIGHT = 500;
 
     public WarGui(JFrame parent) {
-        super(parent);
+        super(parent,new War());
     }
 
     @Override

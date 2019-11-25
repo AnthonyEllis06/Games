@@ -9,7 +9,7 @@ public class BlackJackGui extends AbstractGameGui {
     private final int HEIGHT = 500;
 
     public BlackJackGui(JFrame parent) {
-        super(parent);
+        super(parent,new BlackJack());
     }
 
     @Override
