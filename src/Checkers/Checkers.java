@@ -3,7 +3,7 @@ package Checkers;
 import GameUtil.*;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class Checkers implements GameInterface{
 
@@ -66,7 +66,12 @@ public class Checkers implements GameInterface{
     }
 
     @Override
-    public void gameOver() {
+    public Boolean gameOver() {
+        return false;
+    }
+
+    @Override
+    public void CallCommand(ActionEvent e) {
 
     }
 }

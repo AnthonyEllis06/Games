@@ -1,15 +1,11 @@
 package Checkers;
 
-import javafx.scene.shape.Ellipse;
-
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.*;
-import java.io.IOException;
 
 
 public class CheckerTile extends JPanel implements DropTargetListener
@@ -32,7 +28,6 @@ public class CheckerTile extends JPanel implements DropTargetListener
         setBackground(color);
         if(color==Color.RED) {
             valid = true;
-
             new DropTarget(this,this);
         }
         else {
@@ -40,7 +35,12 @@ public class CheckerTile extends JPanel implements DropTargetListener
         }
     }
     public void setChecker(Checker checker){
+        if(this.checker != null) {
+            return;
+        }
         this.checker = checker;
+        checker.setPrev(checker.getCurr());
+        checker.setCurr(this);
         add(checker);
         revalidate();
         repaint();
@@ -48,9 +48,6 @@ public class CheckerTile extends JPanel implements DropTargetListener
 
     public Checker getChecker() {
         return checker;
-    }
-    public void removeChecker(){
-        remove(checker);
     }
 
     @Override
@@ -68,6 +65,10 @@ public class CheckerTile extends JPanel implements DropTargetListener
         catch (java.io.IOException ioexception){
             dtde.rejectDrop();
             return;
+        }
+        if(getChecker() != null) {
+            dtde.rejectDrop();
+            dropChecker.prev.setChecker(dropChecker);
         }
         dtde.acceptDrop(DnDConstants.ACTION_MOVE);
         dtde.dropComplete(true);

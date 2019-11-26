@@ -2,6 +2,8 @@ package War;
 
 import GameUtil.*;
 
+import java.awt.event.ActionEvent;
+
 public class War  implements GameInterface{
     public War() {
 
@@ -39,7 +41,12 @@ public class War  implements GameInterface{
     }
 
     @Override
-    public void gameOver() {
+    public Boolean gameOver() {
+        return false;
+    }
+
+    @Override
+    public void CallCommand(ActionEvent e) {
 
     }
 }

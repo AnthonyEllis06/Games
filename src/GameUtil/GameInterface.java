@@ -1,9 +1,18 @@
 package GameUtil;
 
-public interface GameInterface {
+public interface GameInterface extends GameLogicListener{
     default void play(){
-        while(!gameWon()){
-            nextPlayerTurn();
+        int numPlayers = getNumPlayers();
+        Player curr = getCurrPlayer();
+        for (int i = 0; i<numPlayers;i++){
+            if(curr!= null){
+                addPlayer(curr);
+            }
+        }
+        while(!gameOver()){
+            for(int i = 0;i<numPlayers;i++)
+                nextPlayerTurn();
+                gameWon();
         }
         gameOver();
     }
@@ -12,5 +21,5 @@ public interface GameInterface {
     void nextPlayerTurn();
     Boolean gameWon();
     int getNumPlayers();
-    void gameOver();
+    Boolean gameOver();
 }
