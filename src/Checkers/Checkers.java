@@ -5,7 +5,7 @@ import GameUtil.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class Checkers implements GameInterface{
+public class Checkers implements GameInterface, CheckerListener{
 
     private CheckerTile[][] board;
     public Checkers() {
@@ -88,6 +88,16 @@ public class Checkers implements GameInterface{
     @Override
     public Boolean gameOver() {
         return false;
+    }
+
+    @Override
+    public void move(Checker checker, CheckerTile start, CheckerTile finish) {
+
+    }
+
+    @Override
+    public void jump(Checker checker, CheckerTile start, CheckerTile finish) {
+
     }
 
     @Override

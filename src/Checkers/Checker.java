@@ -13,6 +13,7 @@ public class Checker extends JLabel implements DragGestureListener, DragSourceLi
     CheckerTransferable transferable;
     CheckerTile curr;
     CheckerTile prev;
+    CheckerListener checkerListener;
     private boolean black;
 
     public Checker(CheckerTile tile, Color color){
@@ -34,6 +35,9 @@ public class Checker extends JLabel implements DragGestureListener, DragSourceLi
         curr = tile;
         prev = curr;
         tile.setChecker(this);
+    }
+    public void setCheckerListener(CheckerListener checkerListener){
+        this.checkerListener = checkerListener;
     }
     public boolean move(CheckerTile tileFinish){
         int start = curr.getTileX();
@@ -61,6 +65,12 @@ public class Checker extends JLabel implements DragGestureListener, DragSourceLi
             }
 
         }
+    }
+    public boolean jump(CheckerTile tileFinish){
+        int start = curr.getTileX();
+        int finish = tileFinish.getTileX();
+        int vert = finish-start ;
+        return false;
     }
 
     public void setCurr(CheckerTile curr) {
