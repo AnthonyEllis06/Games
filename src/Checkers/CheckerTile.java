@@ -59,6 +59,7 @@ public class CheckerTile extends JPanel implements DropTargetListener
     }
     public void clearTile(){
         this.valid = true;
+        this.checker = null;
         removeAll();
         revalidate();
         repaint();

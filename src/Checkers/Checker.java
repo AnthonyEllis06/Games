@@ -39,7 +39,10 @@ public class Checker extends JLabel implements DragGestureListener, DragSourceLi
     public void setCheckerListener(CheckerListener checkerListener){
         this.checkerListener = checkerListener;
     }
+    //The plan is to move everything in this into the Checkers move method and call it via the listener
+    // also make a jump method that will call checkers jump method method
     public boolean move(CheckerTile tileFinish){
+        //checkerListener.move(this, this.curr, tileFinish);
         int start = curr.getTileX();
         int finish = tileFinish.getTileX();
         int vert = finish-start ;

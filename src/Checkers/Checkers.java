@@ -89,15 +89,16 @@ public class Checkers implements GameInterface, CheckerListener{
     public Boolean gameOver() {
         return false;
     }
-
+    // moves checker and returns true
+    // or cant move checker and returns false
     @Override
-    public void move(Checker checker, CheckerTile start, CheckerTile finish) {
-
+    public boolean move(Checker checker, CheckerTile start, CheckerTile finish) {
+    return true;
     }
 
     @Override
-    public void jump(Checker checker, CheckerTile start, CheckerTile finish) {
-
+    public boolean jump(Checker checker, CheckerTile start, CheckerTile finish) {
+        return false;
     }
 
     @Override
