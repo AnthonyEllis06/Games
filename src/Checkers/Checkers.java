@@ -26,16 +26,17 @@ public class Checkers implements GameInterface{
     }
     private void setBoard(){
         boolean startFirst = false;
+        Checker temp;
         for(int y = 0 ; y<=7; y++){
             int x =1;
             if(startFirst)
                 x=0;
             for(; x<=7; x+=2){
                 if(y<3){
-                    new Checker(board[y][x], Color.RED);
+                    temp = new Checker(board[y][x], Color.RED);
                 }
                 if(y>4){
-                    new Checker(board[y][x], Color.BLACK);
+                    temp= new Checker(board[y][x], Color.BLACK);
                 }
 
             }
@@ -52,9 +53,6 @@ public class Checkers implements GameInterface{
     }
     public CheckerTile getCheckerTile(int x, int y){
         return board[x][y];
-    }
-    public void move(CheckerTile tileStart, CheckerTile tileFinish){
-        int vert = Coordinate.CompareCoordinates(tileFinish.getCoordinate(), tileStart.getCoordinate());
     }
     @Override
     public void play() {
@@ -93,7 +91,7 @@ public class Checkers implements GameInterface{
     }
 
     @Override
-    public void CallCommand(ActionEvent e) {
+    public void CallCommand() {
 
     }
 }

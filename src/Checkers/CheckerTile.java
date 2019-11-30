@@ -1,5 +1,7 @@
 package Checkers;
 
+import GameUtil.GameLogicListener;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
@@ -7,14 +9,13 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.*;
+import java.awt.event.ActionEvent;
 
 
 public class CheckerTile extends JPanel implements DropTargetListener
 {
-    private int x;
-    private int y;
-
-
+    private int tilex;
+    private int tiley;
 
     private Coordinate coordinate;
     private Boolean valid;
@@ -23,19 +24,12 @@ public class CheckerTile extends JPanel implements DropTargetListener
     {
         super();
         setTileColor(color);
-        this.x = x;
-        this.y = y;
-        //setCoordinate();
+        tilex = x;
+        tiley = y;
         setBorder(new BevelBorder(1));
         setVisible(true);
         checker = null;
 
-    }
-    private void setCoordinate(){
-        coordinate = new Coordinate(x,y);
-    }
-    public Coordinate getCoordinate() {
-        return coordinate;
     }
 
     public void setTileColor(Color color)
@@ -63,10 +57,9 @@ public class CheckerTile extends JPanel implements DropTargetListener
     public Checker getChecker() {
         return checker;
     }
-
     public void clearTile(){
         this.valid = true;
-        remove(0);
+        removeAll();
         revalidate();
         repaint();
     }
@@ -87,20 +80,30 @@ public class CheckerTile extends JPanel implements DropTargetListener
             dtde.rejectDrop();
             return;
         }
-        if(this.valid == true ) {
-            dtde.acceptDrop(DnDConstants.ACTION_MOVE);
+        if(dropChecker.move(this)) {
             dtde.dropComplete(true);
             setChecker(dropChecker);
-            dropChecker.setCurr(this);
+            dtde.acceptDrop(DnDConstants.ACTION_MOVE);
+
         }
         else{
-            dropChecker.moveBack();
             dtde.rejectDrop();
             dtde.dropComplete(false);
-
         }
+
+
     }
 
+
+    public int getTileX() {
+        return tilex;
+    }
+    public boolean valid(){
+        if(this.valid)
+            return true;
+        else
+            return false;
+    }
 
     @Override
     public void dragEnter(DropTargetDragEvent dtde) {}
@@ -109,5 +112,6 @@ public class CheckerTile extends JPanel implements DropTargetListener
     @Override
     public void dropActionChanged(DropTargetDragEvent dtde) {}
     @Override
-    public void dragExit(DropTargetEvent dte) {}
+    public void dragExit(DropTargetEvent dte) {
+    }
 }

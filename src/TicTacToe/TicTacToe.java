@@ -110,7 +110,7 @@ TicTacToe implements GameInterface {
     }
 
     @Override
-    public void CallCommand(ActionEvent e) {
+    public void CallCommand() {
 
     }
 }

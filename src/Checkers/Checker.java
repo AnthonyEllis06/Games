@@ -6,31 +6,61 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DragGestureEvent;
-import java.awt.dnd.DragGestureListener;
-import java.awt.dnd.DragSource;
+import java.awt.dnd.*;
 import java.io.IOException;
 
-public class Checker extends JLabel implements DragGestureListener {
+public class Checker extends JLabel implements DragGestureListener, DragSourceListener{
     CheckerTransferable transferable;
     CheckerTile curr;
     CheckerTile prev;
+    private boolean black;
 
     public Checker(CheckerTile tile, Color color){
         super();
         //Image m = new BufferedImage();
         DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE,this);
         String filename;
-        if(color == Color.RED)
+
+        if(color == Color.RED){
             filename ="C:\\Users\\Anthony\\Desktop\\Games\\src\\GameUtil\\Images\\RedChecker.png";
-        else
+            black = false;
+        }
+        else{
             filename = "C:\\Users\\Anthony\\Desktop\\Games\\src\\GameUtil\\Images\\BlackChecker.png";
+            black = true;
+        }
         ImageIcon checkerImage = new ImageIcon(filename);
         setIcon(checkerImage);
         curr = tile;
-        prev = null;
+        prev = curr;
         tile.setChecker(this);
+    }
+    public boolean move(CheckerTile tileFinish){
+        int start = curr.getTileX();
+        int finish = tileFinish.getTileX();
+        int vert = finish-start ;
+        if(!tileFinish.valid())
+            return false;
+        else if(tileFinish.getChecker()!=null)
+            return false;
+        else if(vert>1||vert<-1)
+            return false;
+        else{
+            if(black){
+                if(vert==-1)
+                    return true;
+                else
+                    return false;
+            }
+            else{
+                System.out.println(this.black);
+                if(vert==1)
+                    return true;
+                else
+                    return false;
+            }
+
+        }
     }
 
     public void setCurr(CheckerTile curr) {
@@ -47,22 +77,38 @@ public class Checker extends JLabel implements DragGestureListener {
     public CheckerTile getPrev() {
         return prev;
     }
-    public void moveBack(){
-        prev.clearTile();
-        prev.setChecker(this);
-        curr.clearTile();
-        curr = prev;
-        prev = null;
-    }
 
     @Override
     public void dragGestureRecognized(DragGestureEvent dge) {
         CheckerTransferable transferable = new CheckerTransferable(this);
         DragSource ds = dge.getDragSource();
-        prev = curr;
-        prev.clearTile();
-        prev.repaint();
-        ds.startDrag(dge,DragSource.DefaultMoveDrop,transferable,null);
+        ds.startDrag(dge,DragSource.DefaultMoveDrop,transferable,this);
     }
 
+    @Override
+    public void dragEnter(DragSourceDragEvent dragSourceDragEvent) {
+
+    }
+
+    @Override
+    public void dragOver(DragSourceDragEvent dragSourceDragEvent) {
+
+    }
+
+    @Override
+    public void dropActionChanged(DragSourceDragEvent dragSourceDragEvent) {
+
+    }
+
+    @Override
+    public void dragExit(DragSourceEvent dragSourceEvent) {
+
+    }
+
+    @Override
+    public void dragDropEnd(DragSourceDropEvent dragSourceDropEvent) {
+        if(dragSourceDropEvent.getDropSuccess() == true){
+            curr.clearTile();
+        }
+    }
 }
