@@ -2,6 +2,7 @@ package TicTacToe;
 
 import GameUtil.*;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class TicTacToe implements GameInterface {
@@ -103,7 +104,12 @@ public class TicTacToe implements GameInterface {
     }
 
     @Override
-    public void gameOver() {
+    public Boolean gameOver() {
+        return false;
+    }
+
+    @Override
+    public void CallCommand(ActionEvent e) {
 
     }
 }

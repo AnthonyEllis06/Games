@@ -1,7 +1,5 @@
 package Checkers;
 
-import javafx.scene.layout.CornerRadii;
-
 public class Coordinate {
     private int x;
     private int y;

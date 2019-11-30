@@ -14,30 +14,42 @@ import java.io.IOException;
 
 public class Checker extends JLabel implements DragGestureListener {
     CheckerTransferable transferable;
-    Coordinate curr;
-    Coordinate next;
-    public Checker(int x, int y){
+    CheckerTile curr;
+    CheckerTile prev;
+
+    public Checker(CheckerTile tile){
         super();
         //Image m = new BufferedImage();
         DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE,this);
-        ImageIcon checkerImage = new ImageIcon("C:\\Users\\Anthony\\Desktop\\Games\\src\\GameUtil\\Images\\BlackChecker.png");
+        ImageIcon checkerImage = new ImageIcon("C:\\Users\\antho\\Desktop\\Games\\src\\GameUtil\\Images\\BlackChecker.png");
         setIcon(checkerImage);
-        curr = new Coordinate(x,y);
-        next = null;
-    }
-    public void moveChecker(int x, int y){
-
-    }
-    public void moveChecker(Coordinate coordinate){
-
+        curr = tile;
+        prev = null;
+        tile.setChecker(this);
     }
 
+    public void setCurr(CheckerTile curr) {
+        this.curr = curr;
+    }
+    public void setPrev(CheckerTile prev){
+        this.prev= curr;
+    }
+
+    public CheckerTile getCurr() {
+        return curr;
+    }
+
+    public CheckerTile getPrev() {
+        return prev;
+    }
 
     @Override
     public void dragGestureRecognized(DragGestureEvent dge) {
         CheckerTransferable transferable = new CheckerTransferable(this);
         DragSource ds = dge.getDragSource();
-        ds.startDrag(dge,DragSource.DefaultCopyDrop,transferable,null);
+        curr.removeAll();
+        curr.repaint();
+        ds.startDrag(dge,DragSource.DefaultMoveDrop,transferable,null);
     }
 
 }

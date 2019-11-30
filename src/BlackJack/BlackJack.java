@@ -2,6 +2,8 @@ package BlackJack;
 
 import GameUtil.*;
 
+import java.awt.event.ActionEvent;
+
 public class BlackJack implements GameInterface{
     public BlackJack() {
     }
@@ -38,7 +40,13 @@ public class BlackJack implements GameInterface{
     }
 
     @Override
-    public void gameOver() {
+    public Boolean gameOver() {
+        return false;
+
+    }
+
+    @Override
+    public void CallCommand(ActionEvent e) {
 
     }
 }
