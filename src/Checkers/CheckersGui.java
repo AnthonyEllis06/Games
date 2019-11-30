@@ -36,8 +36,6 @@ public class CheckersGui extends AbstractGameGui {
                 add(checkers.getCheckerTile(x,y));
             }
         }
-        CheckerTile tile = checkers.getCheckerTile(0,0);
-        new Checker(tile);
 
         repaint();
     }

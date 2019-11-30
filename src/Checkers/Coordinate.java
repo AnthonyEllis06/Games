@@ -16,4 +16,11 @@ public class Coordinate {
     public int[] getCoordinates(){
         return new int[]{x,y};
     }
+    public static int CompareCoordinates(Coordinate c1, Coordinate c2){
+        int vertDifference = c1.getY()-c2.getY();
+        if(vertDifference > 1 || vertDifference < -1)
+            return 0;
+        else
+            return vertDifference;
+    }
 }

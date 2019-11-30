@@ -11,6 +11,7 @@ public class Checkers implements GameInterface{
     public Checkers() {
         board = new CheckerTile[8][8];
         makeBoard();
+        setBoard();
     }
     private void makeBoard(){
         Color curr=Color.RED;
@@ -23,6 +24,24 @@ public class Checkers implements GameInterface{
         }
 
     }
+    private void setBoard(){
+        boolean startFirst = false;
+        for(int y = 0 ; y<=7; y++){
+            int x =1;
+            if(startFirst)
+                x=0;
+            for(; x<=7; x+=2){
+                if(y<3){
+                    new Checker(board[y][x], Color.RED);
+                }
+                if(y>4){
+                    new Checker(board[y][x], Color.BLACK);
+                }
+
+            }
+            startFirst = !startFirst;
+        }
+    }
     private Color getNextColor(Color curr){
         if(curr.equals(Color.RED)){
             return Color.GRAY;
@@ -33,6 +52,9 @@ public class Checkers implements GameInterface{
     }
     public CheckerTile getCheckerTile(int x, int y){
         return board[x][y];
+    }
+    public void move(CheckerTile tileStart, CheckerTile tileFinish){
+        int vert = Coordinate.CompareCoordinates(tileFinish.getCoordinate(), tileStart.getCoordinate());
     }
     @Override
     public void play() {

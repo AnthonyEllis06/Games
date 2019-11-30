@@ -2,7 +2,7 @@ package GameUtil;
 
 public interface GameInterface extends GameLogicListener{
 
-    //The idea is to have the play method in this game interface make the games al run similar and smooth.
+    //The idea is to have the play method in this game interface make the games all run similar and smooth.
     //It works by continuously making players take turns
     // needs notify to be used to allow players for use strats
     default void play(){
@@ -22,8 +22,8 @@ public interface GameInterface extends GameLogicListener{
     }
     //returns current player
     Player getCurrPlayer();
-    //used in play to add nwew players
-    void addPlayer(Player newPlayer)
+    //used in play to add new players
+    void addPlayer(Player newPlayer);
     //sets the turn for the next player;
     void nextPlayerTurn();
     //checks if game is won in win condition.

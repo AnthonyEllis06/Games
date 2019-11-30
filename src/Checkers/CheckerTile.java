@@ -1,6 +1,7 @@
 package Checkers;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -12,32 +13,45 @@ public class CheckerTile extends JPanel implements DropTargetListener
 {
     private int x;
     private int y;
+
+
+
+    private Coordinate coordinate;
     private Boolean valid;
     private Checker checker;
     public CheckerTile(Color color, int x, int y)
     {
         super();
         setTileColor(color);
+        this.x = x;
+        this.y = y;
+        //setCoordinate();
+        setBorder(new BevelBorder(1));
         setVisible(true);
         checker = null;
 
+    }
+    private void setCoordinate(){
+        coordinate = new Coordinate(x,y);
+    }
+    public Coordinate getCoordinate() {
+        return coordinate;
     }
 
     public void setTileColor(Color color)
     {
         setBackground(color);
         if(color==Color.RED) {
-            valid = true;
+            this.valid = false;
             new DropTarget(this,this);
+
         }
         else {
-            valid = false;
+            this.valid = true;
+            new DropTarget(this,this);
         }
     }
     public void setChecker(Checker checker){
-        if(this.checker != null) {
-            return;
-        }
         this.checker = checker;
         checker.setPrev(checker.getCurr());
         checker.setCurr(this);
@@ -50,6 +64,12 @@ public class CheckerTile extends JPanel implements DropTargetListener
         return checker;
     }
 
+    public void clearTile(){
+        this.valid = true;
+        remove(0);
+        revalidate();
+        repaint();
+    }
     @Override
     public void drop(DropTargetDropEvent dtde) {
         Transferable transferable = dtde.getTransferable();
@@ -63,17 +83,24 @@ public class CheckerTile extends JPanel implements DropTargetListener
             return;
         }
         catch (java.io.IOException ioexception){
+            System.out.println(ioexception.getLocalizedMessage());
             dtde.rejectDrop();
             return;
         }
-        if(getChecker() != null) {
-            dtde.rejectDrop();
-            dropChecker.prev.setChecker(dropChecker);
+        if(this.valid == true ) {
+            dtde.acceptDrop(DnDConstants.ACTION_MOVE);
+            dtde.dropComplete(true);
+            setChecker(dropChecker);
+            dropChecker.setCurr(this);
         }
-        dtde.acceptDrop(DnDConstants.ACTION_MOVE);
-        dtde.dropComplete(true);
-        setChecker(dropChecker);
+        else{
+            dropChecker.moveBack();
+            dtde.rejectDrop();
+            dtde.dropComplete(false);
+
+        }
     }
+
 
     @Override
     public void dragEnter(DropTargetDragEvent dtde) {}

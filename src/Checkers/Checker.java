@@ -17,11 +17,16 @@ public class Checker extends JLabel implements DragGestureListener {
     CheckerTile curr;
     CheckerTile prev;
 
-    public Checker(CheckerTile tile){
+    public Checker(CheckerTile tile, Color color){
         super();
         //Image m = new BufferedImage();
         DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE,this);
-        ImageIcon checkerImage = new ImageIcon("C:\\Users\\antho\\Desktop\\Games\\src\\GameUtil\\Images\\BlackChecker.png");
+        String filename;
+        if(color == Color.RED)
+            filename ="C:\\Users\\Anthony\\Desktop\\Games\\src\\GameUtil\\Images\\RedChecker.png";
+        else
+            filename = "C:\\Users\\Anthony\\Desktop\\Games\\src\\GameUtil\\Images\\BlackChecker.png";
+        ImageIcon checkerImage = new ImageIcon(filename);
         setIcon(checkerImage);
         curr = tile;
         prev = null;
@@ -42,13 +47,21 @@ public class Checker extends JLabel implements DragGestureListener {
     public CheckerTile getPrev() {
         return prev;
     }
+    public void moveBack(){
+        prev.clearTile();
+        prev.setChecker(this);
+        curr.clearTile();
+        curr = prev;
+        prev = null;
+    }
 
     @Override
     public void dragGestureRecognized(DragGestureEvent dge) {
         CheckerTransferable transferable = new CheckerTransferable(this);
         DragSource ds = dge.getDragSource();
-        curr.removeAll();
-        curr.repaint();
+        prev = curr;
+        prev.clearTile();
+        prev.repaint();
         ds.startDrag(dge,DragSource.DefaultMoveDrop,transferable,null);
     }
 

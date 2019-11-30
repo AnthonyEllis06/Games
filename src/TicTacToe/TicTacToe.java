@@ -5,7 +5,8 @@ import GameUtil.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class TicTacToe implements GameInterface {
+public class
+TicTacToe implements GameInterface {
     private Player x;
     private Player o;
     private Player curr;
