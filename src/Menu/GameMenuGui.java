@@ -30,25 +30,32 @@ public class GameMenuGui extends AbstractGameGui implements ActionListener {
 
     @Override
     protected void setUp() {
-        setBackground(Color.BLACK);
+        setBackground(Color.DARK_GRAY);
         JButton checkerButton = new JButton("Checkers");
         checkerButton.addActionListener(this);
         checkerButton.setActionCommand("checker");
-        checkerButton.setBackground(Color.RED);
+        checkerButton.setBackground(Color.WHITE);
+        checkerButton.setForeground(Color.BLACK);
         add(checkerButton);
 
         JButton ticTacToeButton = new JButton("TicTacToe");
         ticTacToeButton.addActionListener(this);
         ticTacToeButton.setActionCommand("ticTac");
+        ticTacToeButton.setBackground(Color.WHITE);
+        ticTacToeButton.setForeground(Color.BLACK);
         add(ticTacToeButton);
 
         JButton WarButton = new JButton("War");
         WarButton.addActionListener(this);
+        WarButton.setBackground(Color.WHITE);
+        WarButton.setForeground(Color.BLACK);
         WarButton.setActionCommand("War");
         add(WarButton);
 
         JButton BlackJackButton = new JButton("BlackJack");
         BlackJackButton.addActionListener(this);
+        BlackJackButton.setBackground(Color.WHITE);
+        BlackJackButton.setForeground(Color.BLACK);
         BlackJackButton.setActionCommand("BlackJack");
         add(BlackJackButton);
     }
