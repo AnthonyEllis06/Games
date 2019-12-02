@@ -2,7 +2,7 @@
 // File name: TicTacToeGui.java
 // Project name: Games
 // ---------------------------------------------------------------------------
-// / Creator’s name and email:
+// / Creator’s name and email: Elyssa Llavan, llavan@etsu.edu
 // Course-Section:CSCI 1260 - 201
 // Creation Date: 11/29/2019
 // Date of Last Modification: 11/29/2019
@@ -22,7 +22,7 @@ import java.awt.event.MouseEvent;
  * <hr>
  * Date created: 11/29/2019 <br>
  * Date last modified: 11/29/2019
- * @author student’s name here
+ * @author Elyssa Llavan
  */
 public class TicTacToeGui extends AbstractGameGui {
     private final int WIDTH = 500; //constant width of the JFrame

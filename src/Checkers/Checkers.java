@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 // File name: Checkers.java
 // Project name: Games
 // ---------------------------------------------------------------------------
-// / Creator’s name and email:
+// / Creator’s name and email: Amber Stanifer, Alex Shepherd, Anthony Ellis, Elyssa Llavan
 // Course-Section: CSCI-1260-201
 // Creation Date: 11/29/19
 // Date of Last Modification: 11/29/19
@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
  * <hr>
  * Date created: 11/29/19 <br>
  * Date last modified: 11/29/19
- * @author
+ * @author Amber Stanifer, Alex Shepherd, Anthony Ellis, Elyssa Llavan
  */
 public class Checkers implements GameInterface, CheckerListener{
 

@@ -3,7 +3,7 @@ package Checkers;
 // File name: CheckerListener.java
 // Project name: Games
 // ---------------------------------------------------------------------------
-// / Creator’s name and email:
+// / Creator’s name and email: Anthony Ellis, ellisah@etsu.edu
 // Course-Section: CSCI-1260-201
 // Creation Date: 11/29/19
 // Date of Last Modification: 11/29/19
@@ -14,7 +14,7 @@ package Checkers;
  * <hr>
  * Date created: 11/29/19 <br>
  * Date last modified: 11/29/19
- * @author
+ * @author Anthony Ellis
  */
 public interface CheckerListener {
 

@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 // File name: CheckerTile.java
 // Project name: Games
 // ---------------------------------------------------------------------------
-// / Creator’s name and email:
+// / Creator’s name and email: Anthony Ellis, ellisah@etsu.edu
 // Course-Section: CSCI-1260-201
 // Creation Date: 11/29/19
 // Date of Last Modification: 11/29/19
@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
  * <hr>
  * Date created: 11/29/19 <br>
  * Date last modified: 11/29/19
- * @author
+ * @author Anthony Ellis
  */
 public class CheckerTile extends JPanel implements DropTargetListener
 {
@@ -60,7 +60,7 @@ public class CheckerTile extends JPanel implements DropTargetListener
         setTileColor(color); //sets the tile color
         tilex = x; //x coordinate of the tile
         tiley = y; //y coordinate of the tile
-        setBorder(new BevelBorder(1)); //sets border for the
+        setBorder(new BevelBorder(1)); //sets border around the checkers to give a nicer look
         setVisible(true); //sets the visibility of checkers to true
         checker = null; //sets checker to null
 
@@ -87,7 +87,6 @@ public class CheckerTile extends JPanel implements DropTargetListener
         if(color==Color.RED) {
             this.valid = false;
             new DropTarget(this,this);
-
         }
         else {
             this.valid = true;
@@ -228,6 +227,8 @@ public class CheckerTile extends JPanel implements DropTargetListener
     public int getTileX() {
         return tilex;
     }
+
+    public int getTileY() { return tiley; }
 
     /**
      * Method Name: valid <br>

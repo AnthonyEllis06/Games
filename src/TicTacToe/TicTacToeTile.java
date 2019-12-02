@@ -2,7 +2,7 @@
 // File name: TicTacToeTile.java
 // Project name: Games
 // ---------------------------------------------------------------------------
-// / Creator’s name and email:
+// / Creator’s name and email: Alex Shepherd, shepherdap@etsu.edu
 // Course-Section: CSCI 1260 - 201
 // Creation Date: 11/29/2019
 // Date of Last Modification: 11/29/2019
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * <hr>
  * Date created: 11/29/2019 <br>
  * Date last modified: 11/29/2019
- * @author student’s name here
+ * @author Alex Shepherd
  */
 public class TicTacToeTile extends JPanel {
     private ArrayList<TicTacToeTile> directions; //ArrayList of directions
