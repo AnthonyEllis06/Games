@@ -4,6 +4,7 @@ import GameUtil.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 //----------------------------------------------------------------------------
 // File name: Checkers.java
 // Project name: Games
@@ -21,7 +22,7 @@ import java.awt.event.ActionEvent;
  * Date last modified: 11/29/19
  * @author Amber Stanifer, Alex Shepherd, Anthony Ellis, Elyssa Llavan
  */
-public class Checkers implements GameInterface, CheckerListener{
+public class Checkers implements GameInterface, CheckerListener, Serializable {
 
     private CheckerTile[][] board; //creates a new checker board
 
