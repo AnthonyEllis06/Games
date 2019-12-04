@@ -3,6 +3,12 @@ import GameUtil.AbstractGameGui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.io.Serializable;
+import java.util.Arrays;
 
 //----------------------------------------------------------------------------
 // File name: CheckersGui.java
@@ -21,7 +27,7 @@ import java.awt.*;
  * Date last modified: 11/29/19
  * @author Amber Stanifer
  */
-public class CheckersGui extends AbstractGameGui {
+public class CheckersGui extends AbstractGameGui implements Serializable {
     private final int WIDTH = 800; //sets the width of the JFrame
     private final int HEIGHT = 800; //set the height of the JFrame
     Checkers checkers; //Makes copy of game logic
@@ -106,13 +112,29 @@ public class CheckersGui extends AbstractGameGui {
         checkers= new Checkers(); //generates a new checkerboard
 
         //sets the checker tiles for each sides
+        CheckerTile temp;
         for(int x = 0; x<8;x++){
             for(int y = 0; y<8; y++){
-                add(checkers.getCheckerTile(x,y));
+                temp = checkers.getCheckerTile(x,y);
+                temp.addContainerListener(new ContainerListener() {
+                    @Override
+                    public void componentAdded(ContainerEvent e) {
+
+                    }
+
+                    @Override
+                    public void componentRemoved(ContainerEvent e) {
+                        Arrays.stream(getComponents()).forEach(component->{
+                            component.revalidate();
+                        component.repaint();});
+                    }
+                });
+                add(temp);
             }
         }
 
         repaint(); //repaint components that have changed that can affect the layout
     }
+
 }
 

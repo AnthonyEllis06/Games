@@ -10,6 +10,9 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ContainerEvent;
+import java.util.Arrays;
 
 //----------------------------------------------------------------------------
 // File name: CheckerTile.java
@@ -36,6 +39,7 @@ public class CheckerTile extends JPanel implements DropTargetListener
     private Coordinate coordinate; //coordinate of tile
     private Boolean valid; //boolean to check if move is valid or not
     private Checker checker; //creates new checker
+    private ActionListener listener;
 
     /**
      * Method Name: CheckerTile <br>
@@ -114,8 +118,6 @@ public class CheckerTile extends JPanel implements DropTargetListener
         checker.setPrev(checker.getCurr()); //sets the previous checker to whatever was stored in current checker
         checker.setCurr(this); //sets this checker to current checker
         add(checker); //adds checker to board
-        revalidate(); //instruct LayoutManager to recalculate layout
-        repaint(); //repaint components that have changed that can affect the layout
     }
 
     /**
@@ -153,10 +155,10 @@ public class CheckerTile extends JPanel implements DropTargetListener
      */
     public void clearTile(){
         this.valid = true; //checks if it is valid
-        this.checker = null; //sets checker to null
-        removeAll(); //removes all
-        revalidate(); //instruct LayoutManager to recalculate layout
-        repaint(); //repaint components that have changed that can affect the layout
+        //this.checker = null; //sets checker to null
+        remove(0); //removes all
+        this.checker =  null;
+        Arrays.stream(super.getContainerListeners()).forEach(e->{e.componentRemoved(new ContainerEvent(this,1,this));});
     }
 
     /**
@@ -189,16 +191,17 @@ public class CheckerTile extends JPanel implements DropTargetListener
             return;
         }
         catch (java.io.IOException ioexception){
-            System.out.println(ioexception.getLocalizedMessage());
+           ioexception.printStackTrace();
             dtde.rejectDrop();
             return;
         }
 
         // if the checker is moved to a valid place drops the checker successfully, else returns false
+
         if(dropChecker.move(this)) {
             dtde.dropComplete(true);
             setChecker(dropChecker);
-            dtde.acceptDrop(DnDConstants.ACTION_MOVE);
+            dtde.acceptDrop(DnDConstants.ACTION_COPY);
 
         }
         else{

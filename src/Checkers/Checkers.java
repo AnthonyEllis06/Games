@@ -5,6 +5,7 @@ import GameUtil.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import java.math.*;
 //----------------------------------------------------------------------------
 // File name: Checkers.java
 // Project name: Games
@@ -22,7 +23,7 @@ import java.io.Serializable;
  * Date last modified: 11/29/19
  * @author Amber Stanifer, Alex Shepherd, Anthony Ellis, Elyssa Llavan
  */
-public class Checkers implements GameInterface, CheckerListener, Serializable {
+public class Checkers implements GameInterface, CheckerListener, Serializable{
 
     private CheckerTile[][] board; //creates a new checker board
 
@@ -99,9 +100,11 @@ public class Checkers implements GameInterface, CheckerListener, Serializable {
             for(; x<=7; x+=2){
                 if(y<3){
                     temp = new Checker(board[y][x], Color.RED);
+                    temp.setCheckerListener(this);
                 }
                 if(y>4){
                     temp= new Checker(board[y][x], Color.BLACK);
+                    temp.setCheckerListener(this);
                 }
 
             }
@@ -270,7 +273,24 @@ public class Checkers implements GameInterface, CheckerListener, Serializable {
      */
     @Override
     public boolean move(Checker checker, CheckerTile start, CheckerTile finish) {
-    return true;
+        int vertDiff = finish.getTileX()-start.getTileX();
+        if(!finish.valid())
+            return false;
+        else if(finish.getChecker()!=null)
+            return false;
+        else if((Math.abs(vertDiff ) ==1)){
+            if(checker.isBlack() && vertDiff==-1)
+                return true;
+            else if(!checker.isBlack() && vertDiff==1)
+                return true;
+            else
+                return false;
+        }
+        else if((Math.abs(vertDiff ) ==2)){
+            return jump(checker,start,finish);
+        }
+        else
+            return false;
     }
 
     /**
@@ -290,7 +310,25 @@ public class Checkers implements GameInterface, CheckerListener, Serializable {
      */
     @Override
     public boolean jump(Checker checker, CheckerTile start, CheckerTile finish) {
-        return false;
+        boolean forward = finish.getTileX()-start.getTileX()<0;
+        boolean right = start.getTileY()<finish.getTileY();
+        int x = 0;
+        int y = 0;
+        if(checker.isBlack()&&forward){
+            if(right)
+                board[start.getTileY()+1][start.getTileX()-1].clearTile();
+            else
+                board[start.getTileY()-1][start.getTileX()-1].clearTile();
+            return true;
+        }
+        else if(!checker.isBlack()&&!forward){
+            if(right)
+                board[start.getTileY()+1][start.getTileX()+1].clearTile();
+            else
+                board[start.getTileY()-1][start.getTileX()+1].clearTile();
+            return true;
+        }
+        return true;
     }
 
 
